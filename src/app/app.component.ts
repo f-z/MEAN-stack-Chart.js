@@ -11,56 +11,70 @@ export class AppComponent {
   title = 'app';
 
   chart = [];
+  results: any;
+  dates: any;
 
-  constructor(private health: HealthApiService) {}
+  constructor(private health: HealthApiService) {
+  }
 
   // tslint:disable-next-line:use-life-cycle-interface
   ngOnInit() {
-    this.health.dailyForecast().then(res => {
-        // tslint:disable-next-line:no-shadowed-variable
-        const temp_max = res['list'].map(res => res.main.temp_max);
-        // tslint:disable-next-line:no-shadowed-variable
-        const temp_min = res['list'].map(res => res.main.temp_min);
-        // tslint:disable-next-line:no-shadowed-variable
-        const alldates = res['list'].map(res => res.dt);
-        const weatherDates = [];
-        // tslint:disable-next-line:no-shadowed-variable
-        alldates.forEach((res) => {
-            const jsdate = new Date(res * 1000);
-            weatherDates.push(jsdate.toLocaleTimeString('en', { year: 'numeric', month: 'short', day: 'numeric' }));
-        });
+    this.results = [];
+    this.dates = [];
 
-        this.chart = new Chart('canvas', {
-          type: 'line',
-          data: {
-            labels: weatherDates,
-            datasets: [
-              {
-                data: temp_max,
-                borderColor: '#3cba9f',
-                fill: false
-              },
-              {
-                data: temp_min,
-                borderColor: '#ffcc00',
-                fill: false
-              },
-            ]
-          },
-          options: {
-            legend: {
-              display: false
-            },
-            scales: {
-              xAxes: [{
-                display: true
-              }],
-              yAxes: [{
-                display: true
-              }],
-            }
-          }
-        });
-      });
+    for (let date = 2000; date <= 2018; date++) {
+      this.getData(date);
+    }
+
+    console.log(this.dates);
+    console.log(this.results);
   }
+
+  getData(date: number) {
+    this.health.publicationCount('asthma', date).then(res => {
+      this.results.push(
+        res.esearchresult.count
+      );
+      this.dates.push(date);
+      this.createChart();
+    });
 }
+
+    createChart() {
+      this.chart = new Chart('canvas', {
+        type: 'line',
+        data: {
+          // labels: this.dates,
+          labels: [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018],
+          datasets: [
+            {
+              data: this.results,
+              borderColor: '#3cba9f',
+              fill: false
+            }
+          ]
+        },
+        options: {
+          legend: {
+            display: false
+          },
+          title: {
+            display: true
+          },
+          events: ['click'],
+          scales: {
+            xAxes: [{
+              display: true
+            }],
+            ticks: {
+              source: 'data'
+            },
+            yAxes: [{
+              display: true
+            }],
+            bounds: 'data'
+          }
+        }
+    });
+    }
+  }
