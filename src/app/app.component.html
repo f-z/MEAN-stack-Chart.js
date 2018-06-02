@@ -7,14 +7,17 @@
 
 <div align="center">
   <h3>Showing number of publications for:</h3>
-  <h2>{{ term }}</h2>
+  <h2 *ngIf="term.length != 0">{{ term }}</h2>
+  <h2 *ngIf="term.length == 0">enter search term</h2>
 
-  <br>
-  <br>
+  <input type="text" [(ngModel)]="term" name="term" placeholder="search term" class="term" maxlength="50" (keyup.enter)="getData(term, minDate, maxDate)"/>
 
-  <input type="text" [(ngModel)]="term" name="term" placeholder="Enter search term" class="term" maxlength="50" />
+  <p>
+  <input type="number" [(ngModel)]="minDate" name="minDate" placeholder="min date" class="date" maxlength="4" (keyup.enter)="getData(term, minDate, maxDate)"/>
+  <input type="number" [(ngModel)]="maxDate" name="maxDate" placeholder="max date" class="date" maxlength="4" (keyup.enter)="getData(term, minDate, maxDate)"/>
+  </p>
 
-  <button class="button" (click)="getData(term, 2000, 2018)">
+  <button class="button" (click)="getData(term, minDate, maxDate)">
     <span>Search</span>
   </button>
 </div>

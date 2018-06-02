@@ -11,72 +11,87 @@ export class AppComponent {
   title = 'app';
 
   chart = [];
-  results: any;
-  dates: any;
+  results = [];
+  dates = [];
+  labels = [];
 
   term: string;
   minDate: number;
   maxDate: number;
 
   constructor(private health: HealthApiService) {
+    // default values
     this.term = 'asthma';
+    this.minDate = 2000;
+    this.maxDate = 2018;
   }
 
   // tslint:disable-next-line:use-life-cycle-interface
   ngOnInit() {
-    this.getData(this.term, 2000, 2018);
+    // displaying an example chart upon load
+    this.getAllData(this.term, this.minDate, this.maxDate);
   }
 
-  getData(term: string, minDate: number, maxDate: number) {
+  getAllData(term: string, minDate: number, maxDate: number) {
+    // resetting variables
     this.results = [];
     this.dates = [];
+    this.labels = [];
 
-    for (let i = minDate; i <= maxDate; i++) {
-      this.health.publicationCount(term, i).then(res => {
+    this.getYearCount(term, minDate);
+  }
+
+  getYearCount(term: string, date: number) {
+    if (date <= this.maxDate) {
+      this.health.getPublicationCount(term, date).then(res => {
         this.results.push(
           res.esearchresult.count
         );
-        this.dates.push(i);
+        this.dates.push(date);
+        this.labels.push(date);
         this.createChart();
+
+        this.getYearCount(term, date + 1);
       });
     }
-}
-
-    createChart() {
-      this.chart = new Chart('canvas', {
-        type: 'line',
-        data: {
-          // labels: this.dates,
-          labels: [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018],
-          datasets: [
-            {
-              data: this.results,
-              borderColor: '#3cba9f',
-              fill: false
-            }
-          ]
-        },
-        options: {
-          legend: {
-            display: false
-          },
-          title: {
-            display: true
-          },
-          events: ['click'],
-          scales: {
-            xAxes: [{
-              display: true
-            }],
-            ticks: {
-              source: 'data'
-            },
-            yAxes: [{
-              display: true
-            }],
-            bounds: 'data'
-          }
-        }
-    });
-    }
   }
+
+  createChart() {
+    this.chart = new Chart('canvas', {
+      type: 'line',
+      data: {
+        // labels: this.dates,
+        labels: this.labels,
+        datasets: [
+          {
+            data: this.results,
+            borderColor: '#3cba9f',
+            fill: false
+          }
+        ]
+      },
+      options: {
+        legend: {
+          display: false
+        },
+        title: {
+          display: true
+        },
+        events: ['click'],
+        scales: {
+          xAxes: [{
+            display: true
+          }],
+          ticks: {
+            source: 'data'
+          },
+          yAxes: [{
+            display: true
+          }],
+          bounds: 'data'
+        },
+        animation: false
+      }
+    });
+  }
+}
