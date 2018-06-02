@@ -1,3 +1,20 @@
 <div>
-  <canvas id="canvas">{{ chart }}</canvas>
+  <canvas id="canvas" width="800" height="300">{{ chart }}</canvas>
+</div>
+
+<br>
+<br>
+
+<div align="center">
+  <h3>Showing number of publications for:</h3>
+  <h2>{{ term }}</h2>
+
+  <br>
+  <br>
+
+  <input type="text" [(ngModel)]="term" name="term" placeholder="Enter search term" class="term" maxlength="50" />
+
+  <button class="button" (click)="getData(term, 2000, 2018)">
+    <span>Search</span>
+  </button>
 </div>

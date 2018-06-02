@@ -1,6 +1,6 @@
 {
   "/api": {
-    "target": "http://samples.openweathermap.org",
+    "target": "url",
     "secure": false,
     "pathRewrite": {
       "^/api": ""

@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 
@@ -12,9 +13,10 @@ import { HealthApiService } from './health-api.service';
   ],
   imports: [
     BrowserModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
-  providers: [HealthApiService],
-  bootstrap: [AppComponent]
+  providers: [ HealthApiService ],
+  bootstrap: [ AppComponent ]
 })
 export class AppModule { }

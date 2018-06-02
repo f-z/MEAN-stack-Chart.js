@@ -14,30 +14,32 @@ export class AppComponent {
   results: any;
   dates: any;
 
+  term: string;
+  minDate: number;
+  maxDate: number;
+
   constructor(private health: HealthApiService) {
+    this.term = 'asthma';
   }
 
   // tslint:disable-next-line:use-life-cycle-interface
   ngOnInit() {
+    this.getData(this.term, 2000, 2018);
+  }
+
+  getData(term: string, minDate: number, maxDate: number) {
     this.results = [];
     this.dates = [];
 
-    for (let date = 2000; date <= 2018; date++) {
-      this.getData(date);
+    for (let i = minDate; i <= maxDate; i++) {
+      this.health.publicationCount(term, i).then(res => {
+        this.results.push(
+          res.esearchresult.count
+        );
+        this.dates.push(i);
+        this.createChart();
+      });
     }
-
-    console.log(this.dates);
-    console.log(this.results);
-  }
-
-  getData(date: number) {
-    this.health.publicationCount('asthma', date).then(res => {
-      this.results.push(
-        res.esearchresult.count
-      );
-      this.dates.push(date);
-      this.createChart();
-    });
 }
 
     createChart() {
