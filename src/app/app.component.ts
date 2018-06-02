@@ -19,11 +19,14 @@ export class AppComponent {
   minDate: number;
   maxDate: number;
 
+  loading: boolean;
+
   constructor(private health: HealthApiService) {
     // default values
     this.term = 'asthma';
     this.minDate = 2000;
-    this.maxDate = 2018;
+    this.maxDate = 2017;
+    this.loading = true;
   }
 
   // tslint:disable-next-line:use-life-cycle-interface
@@ -37,6 +40,7 @@ export class AppComponent {
     this.results = [];
     this.dates = [];
     this.labels = [];
+    this.loading = true;
 
     this.getYearCount(term, minDate);
   }
@@ -53,6 +57,8 @@ export class AppComponent {
 
         this.getYearCount(term, date + 1);
       });
+    } else {
+      this.loading = false;
     }
   }
 

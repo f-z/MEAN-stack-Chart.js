@@ -7,6 +7,8 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { HealthApiService } from './health-api.service';
 
+import { MatButtonModule, MatProgressBarModule } from '@angular/material';
+
 @NgModule({
   declarations: [
     AppComponent
@@ -14,7 +16,9 @@ import { HealthApiService } from './health-api.service';
   imports: [
     BrowserModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    MatButtonModule,
+    MatProgressBarModule
   ],
   providers: [ HealthApiService ],
   bootstrap: [ AppComponent ]

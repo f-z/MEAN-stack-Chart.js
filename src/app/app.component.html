@@ -1,23 +1,30 @@
 <div>
-  <canvas id="canvas" width="800" height="300">{{ chart }}</canvas>
+  <canvas id="canvas" width="800" height="290">{{ chart }}</canvas>
 </div>
 
 <br>
 <br>
+
+<div *ngIf="loading">
+  <h3 align="center">Loading - please wait...</h3>
+  <mat-progress-bar mode="buffer"></mat-progress-bar>
+  <br>
+</div>
 
 <div align="center">
   <h3>Showing number of publications for:</h3>
   <h2 *ngIf="term.length != 0">{{ term }}</h2>
   <h2 *ngIf="term.length == 0">enter search term</h2>
 
-  <input type="text" [(ngModel)]="term" name="term" placeholder="search term" class="term" maxlength="50" (keyup.enter)="getData(term, minDate, maxDate)"/>
+  <input type="text" [(ngModel)]="term" name="term" placeholder="search term" class="term" maxlength="50" (keyup.enter)="getAllData(term, minDate, maxDate)"
+  />
 
   <p>
-  <input type="number" [(ngModel)]="minDate" name="minDate" placeholder="min date" class="date" maxlength="4" (keyup.enter)="getData(term, minDate, maxDate)"/>
-  <input type="number" [(ngModel)]="maxDate" name="maxDate" placeholder="max date" class="date" maxlength="4" (keyup.enter)="getData(term, minDate, maxDate)"/>
+    <input type="number" [(ngModel)]="minDate" name="minDate" placeholder="min date" class="date" maxlength="4" (keyup.enter)="getAllData(term, minDate, maxDate)"
+    />
+    <input type="number" [(ngModel)]="maxDate" name="maxDate" placeholder="max date" class="date" maxlength="4" (keyup.enter)="getAllData(term, minDate, maxDate)"
+    />
   </p>
 
-  <button class="button" (click)="getData(term, minDate, maxDate)">
-    <span>Search</span>
-  </button>
+  <button mat-raised-button color="primary" (click)="getAllData(term, minDate, maxDate)">Search</button>
 </div>
