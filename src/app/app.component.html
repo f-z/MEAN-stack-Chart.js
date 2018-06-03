@@ -16,14 +16,21 @@
   <h2 *ngIf="term.length != 0">{{ term }}</h2>
   <h2 *ngIf="term.length == 0">enter search term</h2>
 
-  <input type="text" [(ngModel)]="term" name="term" placeholder="search term" class="term" maxlength="50" (keyup.enter)="getAllData(term, minDate, maxDate)"
-  />
+  <mat-form-field class="input-field">
+    <input matInput type="text" [(ngModel)]="term" name="term" placeholder="search term" class="term" maxlength="50" (keyup.enter)="getAllData(term, minDate, maxDate)"
+    />
+  </mat-form-field>
 
   <p>
-    <input type="number" [(ngModel)]="minDate" name="minDate" placeholder="min date" class="date" maxlength="4" (keyup.enter)="getAllData(term, minDate, maxDate)"
-    />
-    <input type="number" [(ngModel)]="maxDate" name="maxDate" placeholder="max date" class="date" maxlength="4" (keyup.enter)="getAllData(term, minDate, maxDate)"
-    />
+    <mat-form-field class="date-field">
+      <input matInput type="number" [(ngModel)]="minDate" name="minDate" placeholder="from year" class="date" maxlength="4" (keyup.enter)="getAllData(term, minDate, maxDate)"
+      />
+    </mat-form-field>
+
+    <mat-form-field class="date-field">
+      <input matInput type="number" [(ngModel)]="maxDate" name="maxDate" placeholder="until year" class="date" maxlength="4" (keyup.enter)="getAllData(term, minDate, maxDate)"
+      />
+    </mat-form-field>
   </p>
 
   <button mat-raised-button color="primary" (click)="getAllData(term, minDate, maxDate)">Search</button>

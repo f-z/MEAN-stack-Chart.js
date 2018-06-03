@@ -1,3 +1,15 @@
-p { 
-    word-spacing: 50px;
+p {
+  word-spacing: 50px;
+}
+
+.input-field {
+  min-width: 50px;
+  max-width: 500px;
+}
+
+.date-field {
+    min-width: 30px;
+    max-width: 100px;
+    margin-left: 30px;
+    margin-right: 30px;
 }
