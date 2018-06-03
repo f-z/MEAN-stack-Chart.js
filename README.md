@@ -1,20 +1,17 @@
 # MEAN-stack-Chart.js
-A sample app built using a MEAN stack that retrieves API data and creates a chart.
+A sample web application built using the MEAN stack.
+The app retrieves custom data from an API and creates a chart using Chart.js.
+It then stores them in MongoDB.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.7.
+## MongoDB
+mongod --dbpath ./data/db --port 27018
 
-## Development server
+mongo --host 127.0.0.1:27018
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Recommended MongoDB GUI and IDE: Studio 3T
 
-## Build
+## Node.js
+nodemon server
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+## Angular
+ng serve --o
