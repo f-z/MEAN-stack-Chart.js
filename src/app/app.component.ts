@@ -55,6 +55,7 @@ export class AppComponent {
         this.labels.push(date);
         this.createChart();
 
+        this.addTermUnit(term, date, res.esearchresult.count);
         this.getYearCount(term, date + 1);
       });
     } else {
@@ -99,5 +100,9 @@ export class AppComponent {
         animation: false
       }
     });
+  }
+
+  addTermUnit(term, date, count) {
+    this.health.addTermUnit(term, date, count);
   }
 }

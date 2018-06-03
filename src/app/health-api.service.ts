@@ -8,6 +8,8 @@ export class HealthApiService {
   apiString = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi';
   params = '?db=pubmed&rettype=count&retmode=json&sort=pub+date&usehistory=y';
 
+  uri = 'http://localhost:4000/termunits';
+
   constructor(private http: HttpClient) {}
 
   getPublicationCount(term: string, date: number): any {
@@ -18,5 +20,15 @@ export class HealthApiService {
           resolve(data);
         });
     });
+  }
+
+  addTermUnit(term, date, count) {
+    const obj = {
+      term: term,
+      date: date,
+      count: count
+    };
+    this.http.post(`${this.uri}/add`, obj)
+        .subscribe();
   }
 }

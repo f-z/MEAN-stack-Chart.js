@@ -43,9 +43,9 @@ termUnitRoutes.route('/update/:id').post(function (req, res) {
     if (!termUnit)
       return next(new Error('Could not load document'));
     else {
-      termUnit.unit_name = req.body.unit_name;
-      termUnit.unit_year = req.body.unit_year;
-      termUnit.unit_count = req.body.unit_count;
+      termUnit.term = req.body.term;
+      termUnit.date = req.body.date;
+      termUnit.count = req.body.term;
 
       termUnit.save().then(termUnit => {
         res.json('Update complete');

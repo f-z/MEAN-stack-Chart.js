@@ -3,13 +3,13 @@ const Schema = mongoose.Schema;
 
 // Define collection and schema for AdUnits
 let TermUnit = new Schema({
-  unit_name: {
+  term: {
     type: String
   },
-  unit_year: {
+  date: {
     type: Number
   },
-  unit_count: {
+  count: {
     type: Number
   }
 }, {
